@@ -14,7 +14,7 @@ function Nav() {
 
             <ul>
                 <li id="hiddenNav"><Link to='/' className={'nav-bar-element, link'}>Home</Link></li>
-                <li id="hiddenNav"><Link to='/properties?_sort=bedroom&_order=desc&type=&status=' className={'nav-bar-element, link'}>Properties</Link></li>
+                <li id="hiddenNav"><Link to='/properties' className={'nav-bar-element, link'}>Properties</Link></li>
                 <li id="hiddenNav"><Link to='/sellers' className={'nav-bar-element, link'}>Sellers</Link></li>
                 <li id="hiddenNav"><Link to='/buyers' className={'nav-bar-element, link'}>Buyers</Link></li>
                 <li id="hiddenNav"><Link to='/login' className={'nav-bar-element, link'}>Login</Link></li>

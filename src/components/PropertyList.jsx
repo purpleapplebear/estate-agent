@@ -2,69 +2,23 @@
 
 import { useEffect } from "react"
 import { useState } from "react"
-import {  estateApi, fetchProperties } from "../api/api"
-import { Link, useSearchParams } from "react-router-dom"
+import { fetchProperties } from "../api/api"
+import { Link } from "react-router-dom"
 import AddProperty from "./AddProperty"
 import './property-list-style.css'
 
 function PropertyList() {
     const [isLoading,setIsLoading]=useState(true)
     const [listOfProperties,setListOfProperties]=useState([])
-    const [clicked,setClicked]=useState(true)
-    const [searchParams, setSearchParams]=useSearchParams()
-    let query= searchParams.get('_sort')
-    let order=searchParams.get('_order')
-    let type=searchParams.get('type')
-    let status=searchParams.get('status')
-    //
+   const [clicked,setClicked]=useState(true)
     useEffect(()=>{
         setIsLoading(true)
-        if(type===null){
-            type=''
-        }
-        if(status===null){
-            status=''
-        }
-        
-         fetchProperties({query,type,status}).then(data=>{
-            
-            setListOfProperties(currentList=>{
-                if(order==='desc'){
-                 return   [...data]
-                } else{
-                    return [...data].reverse()
-                }
-               })
-              
+        fetchProperties().then(data=>{
+            setListOfProperties([...data])
             setIsLoading(false)
         })
-        
-    },[setListOfProperties,query,order,type,status])
-    //
-    const handleChangeQuery=(e)=>{
-        
-        setSearchParams(currentParams=>{
-            
-            return {_order:order,_sort:e.target.value, type:type,status:status}
-        })
-    }
-    const handleChangeOrder=(e)=>{
-        
-        setSearchParams(currentParams=>{
-            return {_sort:query,_order:e.target.value,type:type,status:status}
-        })
-    }
-    const handleChangeType=(e)=>{
-        setSearchParams(currentParams=>{
-            return {_sort:query,_order:order, type:e.target.value,status:status }
-        })
-    }
-    const handleChangeStatus=(e)=>{
-        setSearchParams(currentParams=>{
-            return {_sort:query,_order:order, type:type, status:e.target.value }
-        })
-    }
-    //
+    },[setListOfProperties])
+    
     return isLoading?<div>...is loading</div>:<div className="property-list-page">
         
         <div className="property-sort-querries">
@@ -102,12 +56,11 @@ function PropertyList() {
         </div>
         <div className="property-list-container">{listOfProperties.map(property=>{
             return (
-
-                <div class="property-wrapper">
-                <div class="ppt title"><Link to={`/properties/${property.id}`}><h1>{property.address}</h1></Link></div>
-                <div class="ppt image"><Link to={`/properties/${property.id}`}><img class="property-list-image" src={`${property.image}`} alt={`image of property at ${property.address}`}/></Link></div>
-                <div class="ppt description">{property.description}</div>
-                <div class="ppt content">
+                <div className={property.status.replaceAll(' ', '')}>
+                <div className="ppt title"><Link to={`/properties/${property.id}`}><h1>{property.address}</h1></Link></div>
+                <div className="ppt image"><Link to={`/properties/${property.id}`}><img class="property-list-image" src={`${property.image}`} alt={`image of property at ${property.address}`}/></Link></div>
+                <div className="ppt description">{property.description}</div>
+                <div className="ppt content">
                     <h2>£{property.price}</h2>
                     <h3>{property.address}, {property.postcode}</h3>
                     <p>Bedrooms: {property.bedroom}</p>
