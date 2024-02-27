@@ -4,12 +4,13 @@ pipeline {
 		stage('Build') {
 			steps {
 				bat 'npm install'
+                bat 'npm install pm2 -g'
 			}
 		}
 		stage('Deploy') {
 			steps {
-                bat 'npm install pm2 -g'
-                bat 'pm2 start npm --name "estate-agent" --run "db.json"'
+                bat 'npm run dev'
+                bat 'o'
 			}
 		}
 	}
