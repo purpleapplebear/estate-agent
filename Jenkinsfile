@@ -3,14 +3,14 @@ pipeline {
 	stages {
 		stage('Build') {
 			steps {
-				sh 'npm install'
-                sh 'npx json-server db.json'
+				bat 'npm install'
+                bat 'npx json-server db.json'
 			}
 		}
 		stage('Deploy') {
 			steps {
-				sh 'npm run dev'
-                sh 'o'
+				bat 'npm run dev'
+                bat 'o'
 			}
 		}
 	}
