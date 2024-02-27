@@ -8,7 +8,7 @@ pipeline {
 		}
 		stage('Deploy') {
 			steps {
-                bat 'pm2 start App.jsx'
+                bat 'pm2 start src\\node_modules\.bin\pm2 start src\\index.js --name estate-agent'
 			}
 		}
 	}
