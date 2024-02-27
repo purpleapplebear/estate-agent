@@ -8,7 +8,7 @@ pipeline {
 		}
 		stage('Deploy') {
 			steps {
-                bat 'pm2 start npm --start --run "db.json"'
+                bat 'pm2 start App.jsx'
 			}
 		}
 	}
