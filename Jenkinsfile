@@ -10,7 +10,7 @@ pipeline {
             steps {
                 parallel(
                     a: {
-                        bat 'npx json.server db.json'
+                        bat 'npx json-server --watch db.json'
                     },
                     b: {
                         bat 'npm run dev'
