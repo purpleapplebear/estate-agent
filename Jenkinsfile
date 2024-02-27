@@ -4,10 +4,12 @@ pipeline {
 		stage('Build') {
 			steps {
 				bat 'npm install'
-                bat 'npm install pm2 -g'
 			}
 		}
-		stage('Deploy') {
+		parallel('Deploy') {
+            steps {
+                bat 'npx json.server db.json'
+			}
 			steps {
                 bat 'npm run dev'
                 bat 'o'
