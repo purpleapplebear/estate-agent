@@ -19,8 +19,8 @@ function PropertyList() {
     const [clicked,setClicked]=useState(true)
     const [searchParams, setSearchParams]=useSearchParams()
     const [sellers,setSellers]=useState([])
-    let query= searchParams.get('_sort')
-    let order=searchParams.get('_order')
+    let query= searchParams.get('sort_by')
+    let order=searchParams.get('order')
     let type=searchParams.get('type')
     let status=searchParams.get('status')
     //
@@ -34,10 +34,10 @@ function PropertyList() {
         }
         
          fetchProperties({query,type,status}).then(data=>{
+            console.log(data);
             
             let filteredData=data.filter(item=>{
-                
-                return sellers.includes(item['sellerId'].toString())
+                return data;
             })
           
             setListOfProperties(currentList=>{
@@ -53,6 +53,7 @@ function PropertyList() {
         
     },[setListOfProperties,query,order,type,status,sellers])
     //
+    
     useEffect(()=>{
         fetchSellers().then(data=>{
            let sellerIdArr=data.map(item=>{
@@ -66,23 +67,23 @@ function PropertyList() {
         
         setSearchParams(currentParams=>{
             
-            return {_order:order,_sort:e.target.value, type:type,status:status}
+            return {order:order,_sort:e.target.value, type:type,status:status}
         })
     }
     const handleChangeOrder=(e)=>{
         
         setSearchParams(currentParams=>{
-            return {_sort:query,_order:e.target.value,type:type,status:status}
+            return {_sort:query,order:e.target.value,type:type,status:status}
         })
     }
     const handleChangeType=(e)=>{
         setSearchParams(currentParams=>{
-            return {_sort:query,_order:order, type:e.target.value,status:status }
+            return {_sort:query,order:order, type:e.target.value,status:status }
         })
     }
     const handleChangeStatus=(e)=>{
         setSearchParams(currentParams=>{
-            return {_sort:query,_order:order, type:type, status:e.target.value }
+            return {_sort:query,order:order, type:type, status:e.target.value }
         })
     }
     //

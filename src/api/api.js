@@ -1,18 +1,19 @@
 import axios from "axios";
 
 export const estateApi=axios.create(
-    {baseURL:'http://localhost:3000'}
+    {baseURL:'http://localhost:8080'}
 )
 
 export const fetchProperties=(params)=>{
     
     return estateApi.get('/property',{params:{
-        _sort:params.query,
+        sort_by:params.query,
         type:params.type,
         status:params.status
     }
         
     }).then(res=>{
+        console.log(res);
         return res.data
     }
     )
@@ -70,7 +71,7 @@ export const fetchSellersbyID=(seller_id)=>{
 }
 
 export const fetchBooking=()=>{
-    return estateApi.get(`/booking/` ).then(res=>{
+    return estateApi.get(`/booking` ).then(res=>{
         
         return res.data
     }
@@ -85,7 +86,7 @@ export const fetchBuyers=()=>{
 }
 
 export const postBooking=(booking)=>{
-    return estateApi.post(`/booking`,booking).then(res=>{
+    return estateApi.post(`/booking`, booking).then(res=>{
         console.log(res)
     }).catch(err=>{
         console.log(err)
