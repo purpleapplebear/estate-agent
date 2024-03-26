@@ -49,14 +49,15 @@ function Booking(props) {
     findBookingbyPropertyId()
 
 
-   // console.log(bookings)
+   //console.log(bookings)
     function handleSubmit(e){
+        e.preventDefault();
         let prevent = false;
         
         //Would need a check to see if  the user exists and if the booking has already been taken
         let bookingsOfDay =[];
         for(let item in bookings){
-             if(bookings[item].time.split(" ")[0] == document.getElementById("bookingDate").value){
+             if(bookings[item].time == document.getElementById("bookingDate").value){
                  bookingsOfDay.push(bookings[item])
              }
             // }
@@ -73,10 +74,11 @@ function Booking(props) {
 
        if(!prevent ){
         let newBooking ={
-                buyerId:document.getElementById("buyerId").value,
                 propertyId: props.propId,
-                time : (document.getElementById("bookingDate").value + " "+ document.getElementById("timeHour").value+":"+document.getElementById("timeMin").value )
+                buyerId:document.getElementById("buyerId").value,
+                dateTime : (document.getElementById("bookingDate").value + " "+ document.getElementById("timeHour").value+":"+document.getElementById("timeMin").value )
                 }
+                console.log(newBooking);
             postBooking(newBooking)
        }
        else{
@@ -93,8 +95,10 @@ function Booking(props) {
             return(
                 <div className = "booking-wrapper" key = {props.propId}>
                 <div>Booking ID {property.id}</div>
-                <div>Booking Date {((property.time).split(" "))[0]}</div> 
-                <div>Booking Time {((property.time).split(" "))[1]}</div>
+
+                <div>Booking Date {(property.time)}</div> 
+                {/* <div>Booking Date {((property.time).split(" "))[0]}</div> 
+                <div>Booking Time {((property.time).split(" "))[1]}</div> */}
                 <hr/>
                 </div>
                 )
@@ -146,10 +150,14 @@ function Booking(props) {
             return(<div className = "booking-list-container"><h1 >Bookings</h1>{bookings.map(booking =>{
                 return(
                     <div className = "booking-wrapper" key = {props.propId}>
-                    <div>Booking ID {booking.id}</div>
+                    <div>Booking ID: {booking.id}</div>
+
+                    <div>Booking Date/Time: {booking.dateTime}</div> 
                     
+                    {/* Helen removed to get api calls to work:
+
                     <div>Booking Date {((booking.time).split(" "))[0]}</div> 
-                    <div>Booking Time {((booking.time).split(" "))[1]}</div>
+                    <div>Booking Time {((booking.time).split(" "))[1]}</div> */}
                     <hr/>
                     </div>
                     )

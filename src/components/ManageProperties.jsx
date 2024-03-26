@@ -19,12 +19,12 @@ function ManageProperties(){
     const [input,setInput]=useState({})
     //
     useEffect(()=>{
-        fetchProperties({query:'',type:'',status:''}).then(data=>{
+        fetchProperties({sort_by:'',type:'',status:''}).then(data=>{
             
+
             let arr=data.filter((property)=>{
                 return property.sellerId==seller_id
             })
-            
             return arr
         }).then(arr=>{
             setPropertyList(arr)
@@ -58,10 +58,13 @@ function ManageProperties(){
         }
         
     }
+
+    
+
     const handleClickStatus=(id,status,e)=>{
         if(status==='FOR SALE'){
             e.target.style.backgroundColor='red'
-            updatePropertyStatus(id,{status:'SOLD', date: new Date()})
+            updatePropertyStatus(id,{status:"SOLD", dateAdded: new Date().toDateString()})
             setPropertyList(currentList=>{
                 return currentList.map(item=>{
                     if (item.id==id){
