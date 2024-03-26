@@ -7,13 +7,14 @@ export const estateApi=axios.create(
 export const fetchProperties=(params)=>{
     
     return estateApi.get('/property',{params:{
-        sort_by:params.query,
+        sort_by:params.sort_by,
         type:params.type,
-        status:params.status
+        status:params.status,
+        order:params.order
     }
         
     }).then(res=>{
-        console.log(res);
+    
         return res.data
     }
     )
@@ -40,6 +41,7 @@ export const postAccount=(account, url)=> {
 
 export const fetchProperty=(property_id)=>{
     return estateApi.get(`/property/${property_id}`).then(res=>{
+        
         return res.data
     }
     )
@@ -104,6 +106,7 @@ export const deleteProperty=(property_id)=>{
 
 export const updatePropertyStatus=(property_id,update)=>{
     return estateApi.patch(`/property/${property_id}`,update).then((res)=>{
+        console.log(property_id,update)
         console.log(res)
     }).catch(err=>{
         console.log(err)

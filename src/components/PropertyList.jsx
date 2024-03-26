@@ -19,7 +19,7 @@ function PropertyList() {
     const [clicked,setClicked]=useState(true)
     const [searchParams, setSearchParams]=useSearchParams()
     const [sellers,setSellers]=useState([])
-    let query= searchParams.get('sort_by')
+    let sort_by= searchParams.get('sort_by')
     let order=searchParams.get('order')
     let type=searchParams.get('type')
     let status=searchParams.get('status')
@@ -33,25 +33,20 @@ function PropertyList() {
             status=''
         }
         
-         fetchProperties({query,type,status}).then(data=>{
-            console.log(data);
-            
-            let filteredData=data.filter(item=>{
-                return data;
-            })
+         fetchProperties({sort_by,type,status,order}).then(data=>{
           
-            setListOfProperties(currentList=>{
-                if(order==='desc'){
-                 return   [...filteredData]
-                } else{
-                    return [...filteredData].reverse()
-                }
-               })
+        
+          
+            setListOfProperties(currentPropList=>{
+                return [...data]
+            }
+            
+            )
               
             setIsLoading(false)
         })
         
-    },[setListOfProperties,query,order,type,status,sellers])
+    },[setListOfProperties,sort_by,order,type,status,sellers])
     //
     
     useEffect(()=>{
@@ -63,27 +58,27 @@ function PropertyList() {
     })
     },[setSellers])
     //
-    const handleChangeQuery=(e)=>{
+    const handleChangeSort_by=(e)=>{
         
         setSearchParams(currentParams=>{
             
-            return {order:order,_sort:e.target.value, type:type,status:status}
+            return {order:order,sort_by:e.target.value, type:type,status:status}
         })
     }
     const handleChangeOrder=(e)=>{
         
         setSearchParams(currentParams=>{
-            return {_sort:query,order:e.target.value,type:type,status:status}
+            return {sort_by:sort_by,order:e.target.value,type:type,status:status}
         })
     }
     const handleChangeType=(e)=>{
         setSearchParams(currentParams=>{
-            return {_sort:query,order:order, type:e.target.value,status:status }
+            return {sort_by:sort_by,order:order, type:e.target.value,status:status }
         })
     }
     const handleChangeStatus=(e)=>{
         setSearchParams(currentParams=>{
-            return {_sort:query,order:order, type:type, status:e.target.value }
+            return {sort_by:sort_by,order:order, type:type, status:e.target.value }
         })
     }
     //
@@ -93,7 +88,7 @@ function PropertyList() {
         <div className="property-sort-querries">
          
             <label>sort by : 
-                <select onChange={handleChangeQuery} value={query} className="property-sort-select">
+                <select onChange={handleChangeSort_by} value={sort_by} className="property-sort-select">
                     <option value="bedroom">bedrooms</option>
                     <option value="bathroom">bathrooms</option>
                     <option value="price">price</option>
