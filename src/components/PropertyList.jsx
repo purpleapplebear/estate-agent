@@ -111,9 +111,9 @@ function PropertyList() {
                     </select></label>
                     <label>status : 
                 <select onChange={handleChangeStatus} value={status} className="property-sort-select">
-                 <option value="">All</option>
+                 <option value="null" >All</option>
                     <option value="SOLD">Sold</option>
-                    <option value="FOR SALE">For Sale</option>
+                    <option value="FOR_SALE">For Sale</option>
                    
                     
                     </select></label>
