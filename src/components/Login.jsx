@@ -27,7 +27,7 @@ function Login() {
     console.log(userDetails)
     
     return(
-    
+    <html>
     <div className = "grid-container">
     <div className='userPage' >
         <h1>Login</h1>   
@@ -66,12 +66,12 @@ function Login() {
     </select>*/}
         </div>
 
-        <div id = "createAcc"><Link to = "/createaccount"  >Create Account</Link></div>
+        {/* <div id = "createAcc"><Link to = "/createaccount"  >Create Account</Link></div> */}
        
         <input className = "submitBtn" id= "loginButton" type = "submit" value = "Login"></input>
         
         </form>
-    </div></div>)
+    </div></div></html>)
 
 }
 
