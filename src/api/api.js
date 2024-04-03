@@ -14,6 +14,7 @@ export const fetchProperties=(params)=>{
     }
         
     }).then(res=>{
+        console.log(params.status)
     
         return res.data
     }
