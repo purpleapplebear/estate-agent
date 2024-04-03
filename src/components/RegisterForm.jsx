@@ -112,6 +112,7 @@ function RegisterForm(user) {
                         postAccount(account, user.user)
                         //sets the data back to empty to clear form
                         setAccount({firstName : '', surname : '', address : '', postcode : '', phone : ''})
+                        setAddress({line_1: "", line_2: "", line_3: "", post_town: "", postcode: ""})
                 }
 
                 else (
