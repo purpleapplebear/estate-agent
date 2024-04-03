@@ -1,9 +1,10 @@
 import './components.css'
-import { useEffect, useState } from 'react' 
+import { useEffect, createRef, useState } from 'react' 
 import { postAccount } from '../api/api';
 import { fetchSellers } from '../api/api';
 import { fetchBuyers } from '../api/api';
-
+import { PostcodeLookup } from "@ideal-postcodes/postcode-lookup";
+import PostcodeLookupComponent from './PostcodeLookupComponent';
 
 // A complete function that has inputs (through HTML) - using state to save the info inputted. 
 
@@ -16,6 +17,14 @@ import { fetchBuyers } from '../api/api';
 
 
 function RegisterForm(user) {
+
+    const [address, setAddress] = useState({
+        line_1: "",
+        line_2: "",
+        line_3: "",
+        post_town: "",
+        postcode: ""
+      });
 
     let [account, setAccount] = useState({firstName : '', surname : '', address : '', postcode : '', phone : ''})
     let dataNames = []
@@ -47,6 +56,7 @@ function RegisterForm(user) {
 
     return (
         <div className="form-container">
+            
             <form>
             First Name: <div><input name="firstname" value={account.firstName} 
             onChange={(e) =>
@@ -54,15 +64,29 @@ function RegisterForm(user) {
 
             Surname: <div><input name="surname" value={account.surname}
             onChange={(e) =>
-                setAccount((account) => ({ ...account, surname: e.target.value }))} required></input></div>
+                setAccount((account) => ({ ...account, surname: e.target.value }))} required></input></div><br /><br />
 
-            Address: <div><textarea name="address" value={account.address}
+            <PostcodeLookupComponent onAddressSelected={(address) => setAddress(address)} />
+
+            Address Line 1: <div><input name="address" value={address.line_1}
             onChange={(e) =>
-                    setAccount((account) => ({ ...account, address: e.target.value }))} required></textarea></div>
+                setAddress({ ...address, line_1: e.target.value })} required></input></div>
 
-            Postcode: <div><input name="postcode" value={account.postcode}
+            Address Line 2: <div><input name="address" value={address.line_2}
+            onChange={(e) =>
+                setAddress({ ...address, line_2: e.target.value })}></input></div>
+
+            Address Line 3: <div><input name="address" value={address.line_3}
+            onChange={(e) =>
+                setAddress({ ...address, line_3: e.target.value })}></input></div>
+
+            Town: <div><input name="address" value={address.post_town}
+            onChange={(e) =>
+                setAddress({ ...address, post_town: e.target.value })}></input></div>
+
+            Postcode: <div><input name="postcode" value={address.postcode}
                 onChange={(e) =>
-                    setAccount((account) => ({ ...account, postcode: e.target.value }))} required></input></div>
+                    setAddress({ ...address, postcode: e.target.value })} required></input></div>
 
             Telephone: <div><input name="telephone" value={account.phone}
                 onChange={(e) =>
@@ -73,8 +97,13 @@ function RegisterForm(user) {
                 // prevents button from refreshing page
                 e.preventDefault()
 
+                let string_address = address.line_1 + ", " + address.line_2 + ", " + address.line_3 + ", " + address.post_town 
+
+                account.address = string_address
+                account.postcode = address.postcode
+
                 // if statement to check values are put in the form before submitting to database
-                if (account.firstName, account.surname, account.address, account.postcode, account.phone) {   
+                if (account.firstName && account.surname && account.phone) {   
 
                     let checker = account.firstName.toLowerCase().trim() + account.surname.toLowerCase().trim()
                     
