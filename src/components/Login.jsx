@@ -1,77 +1,136 @@
 // imports
 import './Login.css'
-import React from 'react';
-import {useState} from 'react';
+import React, {useRef, useState, useEffect, useContext} from 'react';
+import AuthContext from '../context/AuthProvider';
+import axios from '../api/testAPI';
+
+import {  fetchAdmin} from "../api/testAPI";
+
 import {Link} from 'react-router-dom';
+
+const LOGIN_URL = '/auth';
 
 
 function Login() {
-    let [input, setInputs] = useState({});
-    let [userDetails, setUserDetails] = useState({});
-    
-    const handleChange = (e) =>{
-        return setInputs((item) => {
-            return { ...item, [e.target.name]: e.target.value };
-          });
-        };
+    const {setAuth} = useContext(AuthContext)
+    const userRef = useRef();
+    const errRef = useRef();
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const[errMsg, setErrMsg] = useState('');
+    const[success, setSuccess] = useState(false);
 
-    function handleSubmit(e){
+    useEffect(() => {
+        userRef.current.focus();
+    },[])
+
+    useEffect(() => {
+        setErrMsg('')
+    },[email,password])
+
+    const handleSubmit = async (e) =>{
         e.preventDefault();
-        setUserDetails((items) => {
-            return{...items,...input};
-        })
-        setInputs({});
+       
+        try{
+            const response = await axios.get(LOGIN_URL)
+            const obj = response.data[0];
+            console.log(response)
+            if (email == obj.email && password == obj.password){
+                const accessToken = response?.data.accessToken;
+                const roles = response?.data?.roles;
+
+                setAuth({email, password, roles, accessToken});
+                setEmail('')
+                setPassword('')
+                setSuccess(true);}}
+
+            
+        catch(err){
+            if(!err?.response){
+                setErrMsg('No server response')
+            }
+            else if(err.response?.status === 400){
+                setErrMsg('Missing email or Password')
+            }
+            else if(err.response?.status ===401){
+                setErrMsg('Unauthorized')
+            }
+            else{
+                setErrMsg('Login Failed')
+            }
+            // errRef.current.focus();
+        }
+        
     }
 
-    console.log(userDetails)
+
+
+
+    // let [input, setInputs] = useState({});
+    // let [userDetails, setUserDetails] = useState({});
+    
+    // const handleChange = (e) =>{
+    //     return setInputs((item) => {
+    //         return { ...item, [e.target.name]: e.target.value };
+    //       });
+    //     };
+
+
+    // function handleSubmit(e){
+    //     e.preventDefault();
+    //     setUserDetails((items) => {
+    //         return{...items,...input};
+    //     })
+    //     setInputs({});
+    // }
+
+    // console.log(userDetails)
     
     return(
-    <html>
+        <> 
+        {success ? (
+        <section>
+            <h1>You are logged in</h1>
+        </section>):(
+    <section>
     <div className = "grid-container">
     <div className='userPage' >
-        <h1>Login</h1>   
+        <h1>Sign In</h1>   
         
         <form onSubmit={handleSubmit}>
-         
-        <div>
-        <input 
-            className = "dataField"
-            id ="email" 
-            name = "email" 
-            type = "email" 
-            placeholder = "properties@myemail.com" 
-            required
-            onChange = {handleChange}
-            />
-        </div>  
+            
+                <label htmlFor="email">Email:</label>
+                <input 
+                    className = "dataField"
+                    id ="email" 
+                    ref = {userRef}
+                    type = "email" 
+                    placeholder = "properties@myemail.com" 
+                    required
+                    onChange = {(e) =>setEmail(e.target.value)}
+                    value = {email}
+                    autoComplete="off"
+                    />
+            
+                <label htmlFor="password">Password:</label>
+                <input 
+                    className = "dataField"
+                    id ="password" 
+                    type = "password" 
+                    placeholder = "Password" 
+                    required
+                    onChange = {(e) =>setPassword(e.target.value)}
+                    value = {password}
+                    />
+            
 
-        <div>
-        <input 
-            className = "dataField"
-            id ="password" 
-            name = "password" 
-            type = "password" 
-            placeholder = "Password" 
-            required
-            onChange = {handleChange}/>
-        </div>
-
-        <div>
-
-        {/*Used for when the user creates their account*/}
-       {/* <select class = "dataField" id = "accountType" name = "accountType">
-            <option value = "buyer">Buyer</option>
-            <option value = "seller">Seller</option>
-    </select>*/}
-        </div>
-
-        {/* <div id = "createAcc"><Link to = "/createaccount"  >Create Account</Link></div> */}
-       
-        <input className = "submitBtn" id= "loginButton" type = "submit" value = "Login"></input>
+        <button className = "submitBtn" id= "loginButton" >Login</button>
         
         </form>
-    </div></div></html>)
+        </div>
+        </div>
+    </section>)}</>)
 
 }
 
