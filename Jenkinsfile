@@ -32,7 +32,7 @@ pipeline {
                 // This is the URL of the your repository holding you react project
                 // If your React and Java Project is in the same repository then you will need to add a step to "cd" into the react project folder
                 
-                git url: 'https://github.com/purpleapplebear/estate-agent.git'
+                git url: 'https://github.com/purpleapplebear/estate-agent'
                 
                 bat 'npm install'
                 bat 'npm run dev'
@@ -46,12 +46,13 @@ pipeline {
                 // If your React and Java Project is in the same repository then you don't need to clone the reporistory again BUT
                 // you will need to "cd" into the Java folder
                 
-                git url: 'https://github.com/AGQA2024/estate-agent-springboot.git',
+                git url: 'https://github.com/AGQA2024/estate-agent-springboot',
                     branch: 'master'
 
                 withMaven {
 
                 // Run the maven build
+                bat 'cd project'
                 bat 'mvn clean package' // deploy also runs all phases prior to deploy
 
                 } // Maven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs & SpotBugs reports...
