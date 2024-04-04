@@ -44,8 +44,7 @@ pipeline {
                         bat 'o'
                     },
                     b: {
-                        git url: 'https://github.com/AGQA2024/estate-agent-springboot.git',
-                        branch: 'master'
+                        git url: 'https://github.com/AGQA2024/estate-agent-springboot.git'
 
                         withMaven {
 
