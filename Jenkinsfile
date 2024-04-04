@@ -46,10 +46,11 @@ pipeline {
                     b: {
                         git (url: 'https://github.com/AGQA2024/estate-agent-springboot', branch: 'master')
 
+                        bat 'cd project'
+
                         withMaven {
 
                         // Run the maven build
-                        bat 'cd project'
                         bat 'mvn clean package' // deploy also runs all phases prior to deploy
                             }
                     }
