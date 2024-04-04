@@ -42,18 +42,18 @@ pipeline {
                     a: {
                         bat 'npm run dev'
                         bat 'o'
-                    },
-                    b: {
-                        git (url: 'https://github.com/AGQA2024/estate-agent-springboot', branch: 'master')
-
-                        bat 'cd project'
-
-                        withMaven {
-
-                        // Run the maven build
-                        bat 'mvn clean package' // deploy also runs all phases prior to deploy
-                            }
                     }
+                    // b: {
+                    //     git (url: 'https://github.com/AGQA2024/estate-agent-springboot', branch: 'master')
+
+                    //     bat 'cd project'
+
+                    //     withMaven {
+
+                    //     // Run the maven build
+                    //     bat 'mvn clean package' // deploy also runs all phases prior to deploy
+                    //         }
+                    // }
                 )
             }
         }
