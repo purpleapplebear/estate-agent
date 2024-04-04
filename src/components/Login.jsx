@@ -35,18 +35,24 @@ function Login() {
         try{
             const response = await axios.get(LOGIN_URL)
             const obj = response.data[0];
-            console.log(response)
+           // console.log(response)
             if (email == obj.email && password == obj.password){
                 const accessToken = response?.data.accessToken;
                 const roles = response?.data?.roles;
 
                 setAuth({email, password, roles, accessToken});
+                console.log(setAuth)
                 setEmail('')
                 setPassword('')
-                setSuccess(true);}}
+                setSuccess(true);}
+
+            else {
+                setErrMsg('The email and password you entered did not match our records.')
+            }}
 
             
         catch(err){
+            
             if(!err?.response){
                 setErrMsg('No server response')
             }
@@ -96,8 +102,9 @@ function Login() {
     <section>
     <div className = "grid-container">
     <div className='userPage' >
+    
         <h1>Sign In</h1>   
-        
+        <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
         <form onSubmit={handleSubmit}>
             
                 <label htmlFor="email">Email:</label>
