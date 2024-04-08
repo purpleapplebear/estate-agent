@@ -8,7 +8,6 @@ pipeline {
                 dir('EstateProjectFrontEnd'){
                     git (url: 'https://github.com/purpleapplebear/estate-agent.git', branch: 'main')
                     // bat 'dir'
-
                     bat 'npm install'
                     
                 }
@@ -20,16 +19,12 @@ pipeline {
 
                 dir('EstateProjectBackEnd'){
                     git (url: 'https://github.com/AGQA2024/estate-agent-springboot', branch: 'master')
-                    
-                    bat 'dir'
-                    
+                    // bat 'dir'
                     dir('project'){
-                        bat 'dir'
+                        //Switches us into our backend project folder.
+                        // bat 'dir'
                     }
-                    
-                    // cd project
-                    
-
+                
                     //Add in build steps?
                 }
             }
