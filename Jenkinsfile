@@ -35,10 +35,11 @@ pipeline {
                 parallel(
                     a: {
                         bat 'dir'
-                        // bat 'cd EstateProjectFrontEnd'
-                        // bat 'dir'
-                        // bat 'npm run dev'
-                        // bat 'o'
+
+                        dir('EstateProjectFrontEnd'){
+                            bat 'dir'
+                            bat 'npm run dev'
+                            bat 'o'
                     }
                     // b: {
                     //     bat 'dir'
