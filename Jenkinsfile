@@ -10,8 +10,10 @@ pipeline {
                 bat 'dir'
                 dir('EstateProject@script'){
                     bat 'dir'
-                    bat 'cd 32d66d632db62f0d756a3479d20a574e6245f5f008697b7d7a093754527f4c5d'
+                    bat 'cd .'
                     bat 'dir'
+                    // bat 'cd 32d66d632db62f0d756a3479d20a574e6245f5f008697b7d7a093754527f4c5d'
+                    // bat 'dir'
                 }
                 // bat 'npm install'
             }
