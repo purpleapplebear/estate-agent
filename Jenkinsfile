@@ -10,6 +10,7 @@ pipeline {
                     // bat 'dir'
 
                     bat 'npm install'
+                    
                 }
             }
         }
@@ -19,7 +20,9 @@ pipeline {
 
                 dir('EstateProjectBackEnd'){
                     git (url: 'https://github.com/AGQA2024/estate-agent-springboot', branch: 'master')
-                    // bat 'dir'
+                    
+                    bat 'cd project'
+                    bat 'dir'
 
                     //Add in build steps?
                 }
