@@ -9,7 +9,7 @@ pipeline {
                 git url: 'https://github.com/purpleapplebear/estate-agent.git'
                 bat 'dir'
                 dir('EstateProjectFrontEnd'){
-                    git url: 'https://github.com/purpleapplebear/estate-agent.git'
+                    git (url: 'https://github.com/purpleapplebear/estate-agent.git', branch: 'main')
                     bat 'dir'
                 }
                 dir('EstateProjectBackEnd'){
