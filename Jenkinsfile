@@ -30,30 +30,30 @@ pipeline {
             }
         }
 
-        // stage('Deploy') {
-        //     steps {
-        //         parallel(
-        //             a: {
-        //                 bat 'dir'
-        //                 // bat 'cd EstateProjectFrontEnd'
-        //                 // bat 'dir'
-        //                 // bat 'npm run dev'
-        //                 // bat 'o'
-        //             }
-        //             // b: {
-        //             //     bat 'dir'
+        stage('Deploy') {
+            steps {
+                parallel(
+                    a: {
+                        bat 'dir'
+                        // bat 'cd EstateProjectFrontEnd'
+                        // bat 'dir'
+                        // bat 'npm run dev'
+                        // bat 'o'
+                    }
+                    // b: {
+                    //     bat 'dir'
                         
-        //             //     //bat 'cd'
+                    //     //bat 'cd'
 
-        //             //     // withMaven {
+                    //     // withMaven {
 
-        //             //     // // Run the maven build
-        //             //     // bat 'mvn clean package' // deploy also runs all phases prior to deploy
-        //             //     //     }
-        //             // }
-        //         )
-        //     }
-        // }
+                    //     // // Run the maven build
+                    //     // bat 'mvn clean package' // deploy also runs all phases prior to deploy
+                    //     //     }
+                    // }
+                )
+            }
+        }
     }
 
 }
