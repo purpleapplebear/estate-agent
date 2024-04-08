@@ -33,7 +33,7 @@ pipeline {
             steps {
                 parallel(
                     a: {
-                        bat 'dir'
+                        // bat 'dir'
                         // bat 'cd EstateProjectFrontEnd'
                         // bat 'dir'
                         // bat 'npm run dev'
