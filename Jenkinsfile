@@ -54,7 +54,7 @@ pipeline {
                                 
                                 withMaven {
                                 // Run the maven build
-                                    bat 'mvn clean package' // deploy also runs all phases prior to deploy
+                                    bat 'mvn clean install' // deploy also runs all phases prior to deploy
                                 }
                             }
                         }
