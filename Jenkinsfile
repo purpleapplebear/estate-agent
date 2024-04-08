@@ -34,7 +34,7 @@ pipeline {
             steps {
                 parallel(
                     a: {
-                        bat 'dir'
+                        // bat 'dir'
 
                         dir('EstateProjectFrontEnd'){
                             bat 'dir'
@@ -43,7 +43,7 @@ pipeline {
                         }
                     },
                     b: {
-                        bat 'dir'
+                        // bat 'dir'
                         dir('EstateProjectBackEnd'){
                    
                             dir('project'){
