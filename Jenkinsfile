@@ -50,12 +50,12 @@ pipeline {
                                 //Switches us into our backend project folder.
                                 bat 'dir'
 
-                                bat 'mvn clean package'
+                                // bat 'mvn clean package'
                                 
-                                // withMaven {
-                                // // Run the maven build
-                                // bat 'mvn clean package' // deploy also runs all phases prior to deploy
-                                // }
+                                withMaven {
+                                // Run the maven build
+                                bat 'mvn clean package' // deploy also runs all phases prior to deploy
+                                }
                             }
                         }
                     }
