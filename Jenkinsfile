@@ -38,8 +38,8 @@ pipeline {
 
                         dir('EstateProjectFrontEnd'){
                             bat 'dir'
-                            // bat 'npm run dev'
-                            // bat 'o'
+                            bat 'npm run dev'
+                            bat 'o'
                         }
                     },
                     b: {
