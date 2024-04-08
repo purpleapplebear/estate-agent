@@ -21,8 +21,14 @@ pipeline {
                 dir('EstateProjectBackEnd'){
                     git (url: 'https://github.com/AGQA2024/estate-agent-springboot', branch: 'master')
                     
-                    cd project
                     bat 'dir'
+                    
+                    dir('project'){
+                        bat 'dir'
+                    }
+                    
+                    // cd project
+                    
 
                     //Add in build steps?
                 }
