@@ -12,34 +12,37 @@ pipeline {
                     git url: 'https://github.com/purpleapplebear/estate-agent.git'
                     bat 'dir'
                 }
+                dir('EstateProjectBackEnd'){
+                    git (url: 'https://github.com/AGQA2024/estate-agent-springboot', branch: 'master')
+                    bat 'dir'
+                }
                 // bat 'npm install'
             }
         }
 
-        stage('Deploy') {
-            steps {
-                parallel(
-                    a: {
-                        bat 'npm run dev'
-                        bat 'o'
-                    },
-                    b: {
-                        git (url: 'https://github.com/AGQA2024/estate-agent-springboot', branch: 'master')
+        // stage('Deploy') {
+        //     steps {
+        //         parallel(
+        //             a: {
+        //                 bat 'npm run dev'
+        //                 bat 'o'
+        //             },
+        //             b: {
+        //                 git (url: 'https://github.com/AGQA2024/estate-agent-springboot', branch: 'master')
 
-                        // bat 'cd project'
-                        bat 'dir'
+        //                 bat 'dir'
                         
-                        //bat 'cd'
+        //                 //bat 'cd'
 
-                        // withMaven {
+        //                 // withMaven {
 
-                        // // Run the maven build
-                        // bat 'mvn clean package' // deploy also runs all phases prior to deploy
-                        //     }
-                    }
-                )
-            }
-        }
+        //                 // // Run the maven build
+        //                 // bat 'mvn clean package' // deploy also runs all phases prior to deploy
+        //                 //     }
+        //             }
+        //         )
+        //     }
+        // }
     }
 
 }
