@@ -41,7 +41,7 @@ pipeline {
                             bat 'npm run dev'
                             bat 'o'
                         }
-                    }
+                    },
                     b: {
                         bat 'dir'
                         dir('EstateProjectBackEnd'){
