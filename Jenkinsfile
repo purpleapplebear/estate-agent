@@ -37,7 +37,7 @@ pipeline {
                         // bat 'dir'
 
                         dir('EstateProjectFrontEnd'){
-                            bat 'dir'
+                            // bat 'dir'
                             bat 'npm run dev'
                             bat 'o'
                         }
