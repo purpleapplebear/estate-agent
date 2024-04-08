@@ -22,7 +22,7 @@ pipeline {
                     // bat 'dir'
                     dir('project'){
                         //Switches us into our backend project folder.
-                        // bat 'dir'
+                        bat 'dir'
                     }
                 
                     //Add in build steps?
