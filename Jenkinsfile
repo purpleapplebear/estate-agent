@@ -40,18 +40,23 @@ pipeline {
                             bat 'dir'
                             bat 'npm run dev'
                             bat 'o'
+                        }
                     }
-                    // b: {
-                    //     bat 'dir'
-                        
-                    //     //bat 'cd'
-
-                    //     // withMaven {
-
-                    //     // // Run the maven build
-                    //     // bat 'mvn clean package' // deploy also runs all phases prior to deploy
-                    //     //     }
-                    // }
+                    b: {
+                        bat 'dir'
+                        dir('EstateProjectBackEnd'){
+                   
+                            dir('project'){
+                                //Switches us into our backend project folder.
+                                bat 'dir'
+                                // withMaven {
+        
+                                // // Run the maven build
+                                // bat 'mvn clean package' // deploy also runs all phases prior to deploy
+                                //     }
+                            }
+                        }
+                    }
                 )
             }
         }
