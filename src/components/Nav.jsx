@@ -3,9 +3,10 @@ import { slide as Menu } from 'react-burger-menu';
 import './Nav.css'
 import { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
-
+import burger from '../assets/menus.png'
+import cross from '../assets/cross.png'
 function ResponsiveBurger() {
-  const CustomBurgerIcon = () => <img className="bm-img" src="src\assets\menus.png" />
+  const CustomBurgerIcon = () => <img className="bm-img" src={burger} />
   const [width, setWidth] = useState(window.innerWidth);
   const breakPoint = 768;
   useEffect(() => {
@@ -33,7 +34,7 @@ function ResponsiveBurger() {
     return (
       <div className='nav-bar'>
         <div class ='nav-strip'>
-        <Menu right customBurgerIcon={ <CustomBurgerIcon /> }>
+        <Menu right customBurgerIcon={ <CustomBurgerIcon /> } customCrossIcon={<img src={cross} />}>
         <Link to='/' className={'link'}>Home</Link>
         <Link to='/properties?_sort=bedroom&_order=desc&type=&status=' className={'link'}>Properties</Link>
         <Link to='/sellers' className={'link'}>Sellers</Link>
