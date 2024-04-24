@@ -71,6 +71,7 @@ function Home() {
             </div>
 
             <div className='about-text'>
+                <p>SOME_ENV_VARIABLE = {window.env.REACT_APP_SOME_ENV_VARIABLE}</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
             </div>
             
