@@ -1,68 +1,26 @@
+node {
+    def app
 
-pipeline {
-    agent any
-    stages {
-        stage ('Build Frontend') {
-            steps {
+    stage('Clone repository') {
+        /* Let's make sure we have the repository cloned to our workspace */
 
-                dir('EstateProjectFrontEnd'){
-                    git (url: 'https://github.com/purpleapplebear/estate-agent.git', branch: 'main')
-                    // bat 'dir'
-                    bat 'npm install'
-                    
-                }
-            }
-        }
-
-        stage ('Build Backend') {
-            steps {
-
-                dir('EstateProjectBackEnd'){
-                    git (url: 'https://github.com/AGQA2024/estate-agent-springboot', branch: 'master')
-                    // bat 'dir'
-                    dir('project'){
-                        //Switches us into our backend project folder.
-                        bat 'dir'
-                    }
-                
-                    //Add in build steps?
-                }
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                parallel(
-                    a: {
-                        // bat 'dir'
-
-                        dir('EstateProjectFrontEnd'){
-                            // bat 'dir'
-                            bat 'npm run dev'
-                            bat 'o'
-                        }
-                    },
-                    b: {
-                        // bat 'dir'
-                        dir('EstateProjectBackEnd'){
-                   
-                            dir('project'){
-                                //Switches us into our backend project folder.
-                                bat 'dir'
-
-                                // bat 'mvn clean package'
-                                
-                                withMaven {
-                                // Run the maven build
-                                    // bat 'mvn clean package'
-                                    bat 'mvn clean install' // deploy also runs all phases prior to deploy
-                                }
-                            }
-                        }
-                    }
-                )
-            }
-        }
+        checkout scm
     }
 
+    stage('Build image') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
+
+        app = docker.build("trainsarecool/react-estates")
+    }
+    stage('Push image') {
+        /* Finally, we'll push the image with two tags:
+         * First, the incremental build number from Jenkins
+         * Second, the 'latest' tag.
+         * Pushing multiple tags is cheap, as all the layers are reused. */
+        docker.withRegistry('https://registry.hub.docker.com', 'dockerID') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
+        }
+    }
 }
