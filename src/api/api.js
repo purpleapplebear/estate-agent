@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const estateApi=axios.create(
-    {baseURL:`{window._env_.REACT_APP_MY_VAR}`}
+    {baseURL:`${window._env_.REACT_APP_MY_VAR}`}
 )
 
 export const fetchProperties=(params)=>{
