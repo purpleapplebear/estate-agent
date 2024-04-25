@@ -1,19 +1,3 @@
-# # build environment
-# FROM node:latest as build
-# WORKDIR /app
-# ENV PATH /app/node_modules/.bin:$PATH
-# COPY package.json ./
-# COPY package-lock.json ./
-# RUN npm install
-# COPY . ./
-# RUN npm run dev
-
-# # production environment
-# FROM nginx:stable-alpine
-# COPY --from=build /app/build /usr/share/nginx/html
-# EXPOSE 80
-# CMD ["nginx", "-g", "daemon off;"]
-
 #Dockerfile
 FROM node:18-alpine as build
 
@@ -33,7 +17,7 @@ RUN npm run build
 FROM nginx:1.19-alpine
 
 EXPOSE 80
-ENV REACT_APP_MY_VAR=FromDockerFile
+ENV REACT_APP_MY_VAR=loadbalancer-977948301.eu-west-2.elb.amazonaws.com:8080
 
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 COPY --from=build /app/dist /usr/share/nginx/html
