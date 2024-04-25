@@ -14,21 +14,29 @@
 # EXPOSE 80
 # CMD ["nginx", "-g", "daemon off;"]
 
+#Dockerfile
+FROM node:18-alpine as build
 
-FROM node:18-alpine
-
+#Install the app
 WORKDIR /app
 
-ENV PATH /app/node_modules/.bin:$PATH
-COPY package.json ./
-COPY package-lock.json ./
-
+# ENV PATH /app/node_modules/.bin:$PATH 
+COPY package.json .
+# COPY package-lock.json .
 RUN npm install
 
+#Builf the app
 COPY . .
-
 RUN npm run build
 
-EXPOSE 8080
+#Create nginx server and copy build there
+FROM nginx:1.19-alpine
 
-CMD [ "npm", "run", "preview" ]
+EXPOSE 80
+ENV REACT_APP_MY_VAR=FromDockerFile
+
+COPY ./docker-entrypoint.sh /docker-entrypoint.sh
+COPY --from=build /app/dist /usr/share/nginx/html
+
+
+# CMD [ "npm", "run", "preview" ]
