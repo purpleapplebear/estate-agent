@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const estateApi=axios.create(
-    {baseURL:'loadbalancer-977948301.eu-west-2.elb.amazonaws.com:8080'}
+    {baseURL:`${window._env_.REACT_APP_MY_VAR}`}
 )
 
 export const fetchProperties=(params)=>{
