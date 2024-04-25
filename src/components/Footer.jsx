@@ -1,5 +1,7 @@
 import './footer.css'
-
+import facebook from '../assets/facebook.png'
+import insta from '../assets/instagram.png'
+import whatsapp from '../assets/whatsapp.png'
 function Footer() {
 
     return (
@@ -19,10 +21,10 @@ function Footer() {
                 </div>
                 <div className="footer-content">
                     <h2>Socials</h2>
-                    <img src="/src/assets/facebook.png" />
-                    <img src="/src/assets/instagram.png" />
+                    <img src={facebook} />
+                    <img src={insta} />
                     {/* <img src="/src/assets/twitter.png" />   */}
-                    <img src="/src/assets/whatsapp.png" />
+                    <img src={whatsapp} />
                 </div>
 
             </div>
